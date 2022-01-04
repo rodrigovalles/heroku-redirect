@@ -1,14 +1,7 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-var newBaseURL = process.env.NEW_BASE_URL || 'http://example.com';
-var redirectStatus = parseInt(process.env.REDIRECT_STATUS || 302);
-var port = process.env.PORT || 5000;
+const app = express();
 
-app.get('*', function(request, response) {
-  response.redirect(redirectStatus, newBaseURL + request.url);
-});
-
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+app.use('/', createProxyMiddleware({ target: 'https://api.triunfonet.com.ar', changeOrigin: true }));
+app.listen(5000);
