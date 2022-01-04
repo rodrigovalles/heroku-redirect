@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 var newBaseURL = process.env.NEW_BASE_URL || 'https://api.triunfonet.com.ar';
 var redirectStatus = parseInt(process.env.REDIRECT_STATUS || 302);
